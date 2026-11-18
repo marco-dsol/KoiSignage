@@ -60,6 +60,16 @@ Der Bildschirm ist auf jedem Gerät dieselbe Webseite. Es wird nichts installier
 
 Der Offline-Speicher braucht HTTPS (oder `localhost`), weil Browser ihn nur in einer sicheren Umgebung erlauben.
 
+## Videoformate
+
+KoiSignage wandelt nichts um: Videos werden so gespeichert und abgespielt, wie sie hochgeladen werden. Länge und Vorschaubild liest die Verwaltung direkt im Browser aus. Damit jeder Bildschirm das Video abspielen kann, am besten **MP4 mit H.264** verwenden, in 1920 × 1080 (hochkant 1080 × 1920), mit 25 oder 30 Bildern pro Sekunde und Ton als AAC oder ganz ohne.
+
+HEVC (H.265) vom Smartphone und MOV mit ProRes aus dem Schnittprogramm laufen in vielen Browsern nicht. Solche Dateien vorher umwandeln, zum Beispiel mit HandBrake (Voreinstellung „Fast 1080p30“) oder mit ffmpeg:
+
+```bash
+ffmpeg -i eingang.mov -c:v libx264 -preset slow -crf 21 -vf "scale=-2:1080" -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart ausgang.mp4
+```
+
 ## Einstellungen
 
 | Variable | Vorgabe | Bedeutung |
