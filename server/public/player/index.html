@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>KoiSignage Player</title>
+<link rel="icon" type="image/svg+xml" href="/shared/koi.svg">
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; cursor: none; }
+  body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: #fff; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 100vw; height: 100vh; transform: translate(-50%, -50%); background: #000; overflow: hidden; }
+  #stage.r90 { width: 100vh; height: 100vw; transform: translate(-50%, -50%) rotate(90deg); }
+  #stage.r180 { transform: translate(-50%, -50%) rotate(180deg); }
+  #stage.r270 { width: 100vh; height: 100vw; transform: translate(-50%, -50%) rotate(270deg); }
+  /* Hauptspur: zwei Ebenen, zwischen denen der Player überblendet (Deckkraft und Dauer setzt player.js) */
+  .layer { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; z-index: 1; }
+  .layer video, .layer img, .layer iframe { position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: 0; display: block; background: #000; }
+  /* Überlagerungen: liegen über der Hauptspur, durchsichtige Stellen lassen sie durchscheinen */
+  #over { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+  .ov { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; }
+  .ov video, .ov img, .ov iframe { position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: 0; display: block; background: transparent; }
+  /* Untertitel: gut lesbar auch aus der Entfernung */
+  video::cue { background: rgba(0, 0, 0, .7); color: #fff; }
+  #note { position: absolute; left: 0; right: 0; top: 50%; z-index: 4; display: none; transform: translateY(-50%); padding: 0 6vw; text-align: center; font-size: 3vw; color: #8fa3ab; }
+  html.embed, html.embed body { cursor: default; }
+  #pair { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 5; display: none; background: #10212b; text-align: center; }
+  #pair .box { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); padding: 0 5vw; }
+  #pair .mark { font-size: 2.4vw; font-weight: 500; letter-spacing: .02em; margin: 0 0 4vw; }
+  #pair .mark img { width: 4.4vw; height: 4.4vw; vertical-align: middle; margin-right: .5em; }
+  #pair .mark b { font-weight: 700; color: #f4511e; }
+  #pair h1 { font-size: 3.2vw; font-weight: 600; margin: 0 0 3vw; }
+  #code { font-size: 13vw; font-weight: 700; letter-spacing: .12em; margin: 0 0 3vw; padding-left: .12em; font-variant-numeric: tabular-nums; color: #ffd166; }
+  #pair p { font-size: 2vw; line-height: 1.5; margin: 0 auto; max-width: 34em; color: #c5d3da; }
+  #pair .addr { color: #fff; font-weight: 600; }
+  #debug { position: absolute; left: 0; right: 0; bottom: 0; z-index: 9; display: none; padding: .6em 1em; font-size: 14px; line-height: 1.4; background: rgba(0, 0, 0, .75); white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="layerA"></div>
+  <div class="layer" id="layerB"></div>
+  <div id="over"></div>
+  <div id="note"></div>
+</div>
+<div id="pair">
+  <div class="box">
+    <div class="mark"><img src="/shared/koi.svg" alt=""><b>Koi</b>Signage</div>
+    <h1>Diesen Bildschirm koppeln</h1>
+    <div id="code">······</div>
+    <p>In der Verwaltung unter <span class="addr" id="addr"></span> auf „Bildschirme" gehen, „Bildschirm koppeln" wählen und diesen Code eingeben.</p>
+  </div>
+</div>
+<div id="debug"></div>
+<script src="/shared/rules.js"></script>
+<script src="player.js"></script>
+</body>
+</html>

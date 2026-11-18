@@ -1,0 +1,9 @@
+data/
+node_modules/
+.DS_Store
+.env
+
+# Nicht im öffentlichen Repository: Marketing (Logo-Entwürfe, Werbefilm), Website und Knowledgebase
+marketing/
+website/
+knowledgebase/

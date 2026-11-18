@@ -1,0 +1,12 @@
+services:
+  koisignage:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/data
+    environment:
+      # TRUST_PROXY: "1"        # einschalten, wenn ein Reverse Proxy mit HTTPS davor steht
+      # ADMIN_PASSWORD: "..."   # gibt das Admin-Passwort fest vor
+      MAX_UPLOAD_MB: "4096"
